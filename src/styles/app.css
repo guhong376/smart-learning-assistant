@@ -1,0 +1,933 @@
+ :root {
+  color-scheme: light dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  /* 全局蓝紫粉渐变底（参考你提供的风格） */
+  background:
+    linear-gradient(
+      135deg,
+      var(--theme-gradient-from, #3b82f6) 0%,
+      var(--theme-gradient-mid, #8b5cf6) 48%,
+      var(--theme-gradient-to, #ec4899) 100%
+    );
+  background-attachment: fixed;
+  transition: background-color 0.3s ease;
+}
+
+/* 不再覆盖背景：保留纯渐变底（你要的效果） */
+
+.ant-layout {
+  background: transparent !important;
+}
+
+.sla-page-title,
+.sla-page-title * {
+  color: var(--theme-text-on-dark, rgba(255, 255, 255, 0.92)) !important;
+}
+
+.sla-app {
+  height: 100%;
+}
+
+.sla-content {
+  padding: 16px;
+}
+
+.sla-dashboard .ant-card {
+  /* Dashboard 里让面板更像 KPI 大屏：更统一更干净 */
+  border-radius: 14px;
+}
+
+.sla-hero-card.ant-card {
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  background: rgba(255, 255, 255, 0.16) !important;
+}
+
+.sla-hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.sla-kpi-card .ant-statistic-title {
+  opacity: 0.75;
+}
+
+.sla-kpi-card .ant-statistic-content-value {
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.sla-quick-card {
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  transition: transform 160ms ease, border-color 160ms ease;
+}
+
+.sla-quick-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.34) !important;
+}
+
+.sla-quick-card::before {
+  content: '';
+  display: block;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent, #3b82f6), rgba(255,255,255,0));
+  margin: -8px -8px 10px -8px;
+}
+
+.sla-quick-icon {
+  font-size: 34px;
+  line-height: 1;
+}
+
+.sla-page-title {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 12px 0;
+}
+
+.sla-page-title h2 {
+  margin: 0;
+}
+
+/* 默认（暗底区域）文字：白 */
+body,
+body .ant-typography {
+  color: var(--theme-text-on-dark, rgba(255, 255, 255, 0.92));
+}
+body .ant-typography.ant-typography-secondary,
+body .ant-typography .ant-typography-secondary {
+  color: var(--theme-text-secondary-on-dark, rgba(255, 255, 255, 0.62)) !important;
+}
+
+/* 卡片：更明显的背景/边框/发光，增强“文字 vs 卡片”区分 */
+.ant-card {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.28) 0%,
+      rgba(255, 255, 255, 0.18) 60%,
+      rgba(255, 255, 255, 0.12) 100%
+    ),
+    var(--theme-card-bg, rgba(255, 255, 255, 0.18)) !important;
+  border: 1px solid var(--theme-card-border, rgba(255, 255, 255, 0.34)) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.26);
+}
+
+.ant-card-head {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.ant-card-body {
+  color: var(--theme-text-on-light, rgba(15, 23, 42, 0.92));
+}
+
+/* 卡片内部：深色字（适配白色透明玻璃卡片） */
+.ant-card,
+.ant-card .ant-typography,
+.ant-card .ant-descriptions,
+.ant-card .ant-descriptions-item-label,
+.ant-card .ant-descriptions-item-content,
+.ant-card .ant-table,
+.ant-card .ant-table-thead > tr > th,
+.ant-card .ant-table-tbody > tr > td,
+.ant-card .ant-list,
+.ant-card .ant-list-item,
+.ant-card .ant-list-item-meta-title,
+.ant-card .ant-list-item-meta-description,
+.ant-card .ant-statistic-title,
+.ant-card .ant-statistic-content,
+.ant-card .ant-statistic-content-value,
+.ant-card .ant-statistic-content-suffix,
+.ant-card .ant-form-item-label > label {
+  color: var(--theme-text-on-light, rgba(15, 23, 42, 0.92)) !important;
+}
+.ant-card .ant-typography.ant-typography-secondary,
+.ant-card .ant-typography .ant-typography-secondary {
+  color: var(--theme-text-secondary-on-light, rgba(15, 23, 42, 0.62)) !important;
+}
+
+
+/* 侧边栏：蓝灰玻璃面板 */
+.ant-layout-sider {
+  background: var(--theme-panel-bg, rgba(255, 255, 255, 0.10)) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* 侧边栏折叠触发器（底部黑条）→ 同款蓝紫渐变 */
+.ant-layout-sider-trigger,
+.ant-layout-sider-zero-width-trigger {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  color: #fff !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+.ant-layout-sider-trigger:hover,
+.ant-layout-sider-zero-width-trigger:hover {
+  background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+}
+.ant-layout-sider-trigger .anticon,
+.ant-layout-sider-zero-width-trigger .anticon {
+  color: #fff !important;
+}
+
+/* 顶部栏：同样玻璃化 */
+.ant-layout-header {
+  background: var(--theme-panel-bg, rgba(255, 255, 255, 0.10)) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* 侧边栏/顶部栏文字保持白（避免被卡片“深色字”规则影响） */
+.ant-layout-sider,
+.ant-layout-sider * ,
+.ant-layout-header,
+.ant-layout-header * {
+  color: var(--theme-text-on-dark, rgba(255, 255, 255, 0.92)) !important;
+}
+
+/* 菜单：更像大屏面板（选中态更亮、更有层次） */
+.ant-menu.ant-menu-dark {
+  background: transparent !important;
+}
+.ant-menu-dark .ant-menu-item-selected {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  margin-inline: 10px !important;
+  border-radius: 10px;
+}
+.ant-menu-dark .ant-menu-item:hover {
+  background: rgba(255, 255, 255, 0.10) !important;
+  margin-inline: 10px !important;
+  border-radius: 10px;
+}
+
+/* 按钮：更扁平（去阴影、边框更克制） */
+.ant-btn {
+  box-shadow: none !important;
+}
+
+.ant-btn-primary {
+  box-shadow: none !important;
+  background: linear-gradient(90deg, rgba(59,130,246,0.95), rgba(139,92,246,0.95)) !important;
+  border: 0 !important;
+}
+
+.ant-btn-default,
+.ant-btn-dashed {
+  background: rgba(255, 255, 255, 0.10) !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+}
+
+.ant-btn-default:hover,
+.ant-btn-dashed:hover {
+  border-color: rgba(255, 255, 255, 0.26) !important;
+}
+
+/* 输入/选择：面板化 */
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-select-selector,
+.ant-picker {
+  background: rgba(255, 255, 255, 0.10) !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  box-shadow: none !important;
+  color: var(--theme-text-on-light, rgba(15, 23, 42, 0.92)) !important;
+}
+
+.ant-input::placeholder {
+  color: rgba(15, 23, 42, 0.45) !important;
+}
+.ant-select-selection-placeholder {
+  color: rgba(15, 23, 42, 0.45) !important;
+}
+
+/* Select/TreeSelect 下拉菜单是 portal 到 body 的，会被全局“白字”规则影响；这里强制深色字 + 亮底 */
+.ant-select-dropdown,
+.ant-tree-select-dropdown {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(15, 23, 42, 0.14) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.ant-select-dropdown .ant-select-item,
+.ant-select-dropdown .ant-select-item-option-content,
+.ant-select-dropdown .ant-select-item-empty,
+.ant-tree-select-dropdown .ant-select-tree-title,
+.ant-tree-select-dropdown .ant-select-tree-node-content-wrapper,
+.ant-tree-select-dropdown .ant-select-tree-switcher {
+  color: rgb(15, 23, 42) !important;
+  opacity: 1 !important;
+}
+.ant-select-dropdown .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+  background: rgba(59, 130, 246, 0.10) !important;
+}
+.ant-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background: rgba(139, 92, 246, 0.12) !important;
+}
+
+/* 卡片内 placeholder/已选值：更清晰（避免“像透明”） */
+.ant-card .ant-input::placeholder,
+.ant-card .ant-select-selection-placeholder,
+.ant-card .ant-tree-select .ant-select-selection-placeholder {
+  color: rgba(15, 23, 42, 0.66) !important;
+  opacity: 1 !important;
+}
+.ant-card .ant-select-selection-item,
+.ant-card .ant-tree-select .ant-select-selection-item {
+  color: rgb(15, 23, 42) !important;
+  opacity: 1 !important;
+}
+.ant-card .ant-typography.ant-typography-secondary,
+.ant-card .ant-typography .ant-typography-secondary {
+  color: rgba(15, 23, 42, 0.78) !important;
+}
+.ant-input:focus,
+.ant-input-affix-wrapper-focused,
+.ant-select-focused .ant-select-selector,
+.ant-picker-focused {
+  border-color: rgba(255, 255, 255, 0.34) !important;
+}
+
+/* 表格：面板化 */
+.ant-table,
+.ant-table-container,
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr > td {
+  background: transparent !important;
+}
+.ant-table-wrapper .ant-table {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.ant-table-thead > tr > th {
+  background: rgba(255, 255, 255, 0.10) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14) !important;
+}
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+.ant-table-tbody > tr:hover > td {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* 状态色更“亮”一些（Tag/Badge 更醒目） */
+.ant-tag-green,
+.ant-tag-success {
+  filter: saturate(1.15) brightness(1.05);
+}
+.ant-tag-warning {
+  filter: saturate(1.15) brightness(1.06);
+}
+.ant-tag-error,
+.ant-tag-red {
+  filter: saturate(1.15) brightness(1.06);
+}
+
+/* 优化颜色搭配：更鲜艳的状态色，更清晰的层次 */
+
+/* KPI 卡片：不同渐变色主题 */
+.sla-kpi-card {
+  border: none !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 蓝色渐变卡片 */
+.sla-kpi-card-blue {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(99, 102, 241, 0.15)) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+.sla-kpi-card-blue::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #6366f1);
+}
+
+/* 绿色渐变卡片 */
+.sla-kpi-card-green {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(16, 185, 129, 0.15)) !important;
+  border: 1px solid rgba(34, 197, 94, 0.3) !important;
+}
+
+.sla-kpi-card-green::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #22c55e, #10b981);
+}
+
+/* 红色渐变卡片 */
+.sla-kpi-card-red {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(245, 101, 101, 0.15)) !important;
+  border: 1px solid rgba(239, 68, 68, 0.3) !important;
+}
+
+.sla-kpi-card-red::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ef4444, #f56565);
+}
+
+/* 紫色渐变卡片 */
+.sla-kpi-card-purple {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(168, 85, 247, 0.15)) !important;
+  border: 1px solid rgba(139, 92, 246, 0.3) !important;
+}
+
+.sla-kpi-card-purple::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #8b5cf6, #a855f7);
+}
+
+/* KPI 卡片内容样式保持不变 */
+.sla-kpi-card .ant-statistic-content-value {
+  font-weight: 600 !important;
+  font-size: 28px !important;
+}
+
+.sla-kpi-card .ant-statistic-content-prefix {
+  font-size: 20px !important;
+  margin-right: 8px !important;
+}
+
+.sla-kpi-card .ant-statistic-title {
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  color: var(--theme-text-secondary-on-light, rgba(15,23,42,0.70)) !important;
+}
+
+/* 快捷入口卡片：图标更鲜艳 */
+.sla-quick-card .ant-typography {
+  font-weight: 500 !important;
+}
+
+.sla-quick-card .ant-typography:first-of-type {
+  font-weight: 600 !important;
+  font-size: 15px !important;
+}
+
+/* 状态色更鲜艳（全局） */
+.ant-tag-success,
+.ant-tag[data-color="success"] {
+  background-color: rgba(34, 197, 94, 0.15) !important;
+  border-color: #22c55e !important;
+  color: #16a34a !important;
+}
+
+.ant-tag-processing,
+.ant-tag[data-color="processing"] {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+  border-color: #3b82f6 !important;
+  color: #2563eb !important;
+}
+
+.ant-tag-warning,
+.ant-tag[data-color="warning"] {
+  background-color: rgba(245, 158, 11, 0.15) !important;
+  border-color: #f59e0b !important;
+  color: #d97706 !important;
+}
+
+.ant-tag-error,
+.ant-tag[data-color="error"] {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+  border-color: #ef4444 !important;
+  color: #dc2626 !important;
+}
+
+/* List 项目的图标更鲜艳 */
+.ant-list-item-meta-avatar .anticon {
+  font-size: 16px !important;
+}
+
+/* 按钮文字更清晰 */
+.ant-btn-primary {
+  font-weight: 500 !important;
+}
+
+.ant-btn-link {
+  font-weight: 500 !important;
+}
+
+/* 把所有黑色框换成紫色视觉效果 */
+
+/* 滑块组件：蓝紫渐变 */
+.ant-slider-rail {
+  background: rgba(59, 130, 246, 0.15) !important;
+}
+
+.ant-slider-track {
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6) !important;
+}
+
+.ant-slider-handle {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  border: 2px solid rgba(255, 255, 255, 0.8) !important;
+}
+
+/* 输入框数字组件：蓝紫边框 */
+.ant-input-number {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.08)) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+.ant-input-number:focus,
+.ant-input-number-focused {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
+
+/* 按钮：蓝紫渐变风格（你想要的效果） */
+.ant-btn-primary {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  border: 0 !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+  font-weight: 500 !important;
+}
+
+.ant-btn-primary:hover {
+  background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4) !important;
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
+
+/* 日历组件：蓝紫渐变风格 */
+.ant-picker-calendar {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05)) !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
+  border-radius: 12px !important;
+}
+
+.ant-picker-calendar-header {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1)) !important;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+.ant-picker-calendar-date-today {
+  border: 2px solid #3b82f6 !important;
+  background: rgba(59, 130, 246, 0.1) !important;
+}
+
+.ant-picker-calendar-date-selected {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  color: white !important;
+}
+
+/* 复习计划页日历：把“深色面板”改成按钮同款蓝紫渐变（更好看） */
+.sla-plan-calendar.ant-picker-calendar,
+.sla-plan-calendar .ant-picker-panel,
+.sla-plan-calendar .ant-picker-panel-layout,
+.sla-plan-calendar .ant-picker-body {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.22), rgba(139, 92, 246, 0.22)) !important;
+  border-radius: 14px !important;
+}
+.sla-plan-calendar .ant-picker-panel {
+  border: 1px solid rgba(59, 130, 246, 0.22) !important;
+  overflow: hidden;
+}
+.sla-plan-calendar .ant-picker-calendar-header {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(139, 92, 246, 0.18)) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+
+/* 日历文字（周标题、日期数字）改为白字以适配渐变底 */
+.sla-plan-calendar .ant-picker-content th,
+.sla-plan-calendar .ant-picker-cell,
+.sla-plan-calendar .ant-picker-cell .ant-picker-cell-inner,
+.sla-plan-calendar .ant-picker-calendar-header,
+.sla-plan-calendar .ant-picker-calendar-header * {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+.sla-plan-calendar .ant-picker-cell-in-view.ant-picker-cell-disabled .ant-picker-cell-inner,
+.sla-plan-calendar .ant-picker-cell-disabled .ant-picker-cell-inner {
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* Hover / Today / Selected：更“按钮化”的高亮 */
+.sla-plan-calendar .ant-picker-cell-in-view .ant-picker-cell-inner:hover {
+  background: rgba(255, 255, 255, 0.10) !important;
+}
+.sla-plan-calendar .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner {
+  border: 1px solid rgba(255, 255, 255, 0.72) !important;
+  background: rgba(255, 255, 255, 0.10) !important;
+}
+.sla-plan-calendar .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner,
+.sla-plan-calendar .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner,
+.sla-plan-calendar .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 18px rgba(59, 130, 246, 0.32);
+}
+
+/* Month/Year 切换（Radio Buttons）跟随渐变风格 */
+.sla-plan-calendar .ant-picker-calendar-mode-switch .ant-radio-button-wrapper {
+  background: rgba(255, 255, 255, 0.10) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+.sla-plan-calendar .ant-picker-calendar-mode-switch .ant-radio-button-wrapper-checked {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  border-color: transparent !important;
+  color: #fff !important;
+}
+
+/* 下拉选择器：蓝紫渐变风格 */
+.ant-select-selector {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.08)) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+.ant-select-focused .ant-select-selector {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
+
+/* 日期选择器：蓝紫渐变风格 */
+.ant-picker {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.08)) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+.ant-picker-focused {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
+
+/* DatePicker 弹层（日历下拉面板）：别太透明，保证清晰可读 */
+.ant-picker-dropdown .ant-picker-panel,
+.ant-picker-dropdown .ant-picker-panel-container {
+  background: rgba(255, 255, 255, 0.97) !important;
+  border: 1px solid rgba(59, 130, 246, 0.22) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+}
+.ant-picker-dropdown .ant-picker-header,
+.ant-picker-dropdown .ant-picker-footer {
+  background: rgba(255, 255, 255, 0.55) !important;
+  border-color: rgba(15, 23, 42, 0.10) !important;
+}
+.ant-picker-dropdown .ant-picker-content th,
+.ant-picker-dropdown .ant-picker-cell,
+.ant-picker-dropdown .ant-picker-cell .ant-picker-cell-inner,
+.ant-picker-dropdown .ant-picker-header *,
+.ant-picker-dropdown .ant-picker-footer * {
+  color: rgba(15, 23, 42, 0.92) !important;
+}
+.ant-picker-dropdown .ant-picker-cell-disabled .ant-picker-cell-inner {
+  color: rgba(15, 23, 42, 0.30) !important;
+}
+.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before {
+  border-color: rgba(59, 130, 246, 0.9) !important;
+}
+.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner,
+.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner,
+.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  color: #fff !important;
+}
+.ant-picker-dropdown .ant-picker-today-btn {
+  color: rgba(59, 130, 246, 0.95) !important;
+}
+
+/* 进度条：蓝紫渐变 */
+.ant-progress-bg {
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6) !important;
+}
+
+/* 开关组件：蓝紫风格 */
+.ant-switch-checked {
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6) !important;
+}
+
+/* 标签页：蓝紫激活态 */
+.ant-tabs-tab-active {
+  color: #3b82f6 !important;
+}
+
+.ant-tabs-ink-bar {
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6) !important;
+}
+
+/* Segmented（例如“最近一周/最近一月”）：去掉黑底，改为同款蓝紫渐变 */
+.ant-segmented {
+  background: rgba(255, 255, 255, 0.10) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.ant-segmented .ant-segmented-item-label {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+.ant-segmented .ant-segmented-item-selected {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  box-shadow: 0 8px 18px rgba(59, 130, 246, 0.28);
+}
+.ant-segmented .ant-segmented-item-selected .ant-segmented-item-label {
+  color: #fff !important;
+}
+
+/* Timeline（里程碑）自定义 dot：去掉黑底，改为同款蓝紫渐变 */
+.ant-timeline-item-head-custom {
+  background: transparent !important;
+}
+.sla-timeline-dot {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  box-shadow: 0 10px 22px rgba(59, 130, 246, 0.25);
+  color: #fff;
+}
+.sla-timeline-dot .anticon {
+  font-size: 14px;
+  line-height: 1;
+  color: #fff !important;
+}
+
+/* 抽屉/模态框：更不透明，内容更清晰 */
+.ant-drawer-content,
+.ant-modal-content {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+.ant-drawer-body,
+.ant-modal-body {
+  background: transparent !important;
+}
+
+.ant-drawer-header,
+.ant-modal-header {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* 抽屉/模态框内的文字：确保清晰可读 */
+.ant-drawer,
+.ant-drawer .ant-typography,
+.ant-modal .ant-typography,
+.ant-drawer .ant-descriptions,
+.ant-modal .ant-descriptions,
+.ant-drawer .ant-descriptions-item-label,
+.ant-modal .ant-descriptions-item-label,
+.ant-drawer .ant-descriptions-item-content,
+.ant-modal .ant-descriptions-item-content,
+.ant-drawer .ant-table,
+.ant-modal .ant-table,
+.ant-drawer .ant-table-thead > tr > th,
+.ant-drawer .ant-table-tbody > tr > td,
+.ant-drawer .ant-list,
+.ant-drawer .ant-list-item,
+.ant-drawer .ant-form-item-label > label,
+.ant-modal .ant-form-item-label > label,
+.ant-drawer .ant-input,
+.ant-drawer .ant-select,
+.ant-drawer .ant-tree-select {
+  /* 用不透明深色，避免“看起来透明” */
+  color: rgb(15, 23, 42) !important;
+}
+
+.ant-drawer .ant-typography.ant-typography-secondary,
+.ant-modal .ant-typography.ant-typography-secondary,
+.ant-drawer .ant-typography .ant-typography-secondary,
+.ant-modal .ant-typography .ant-typography-secondary {
+  color: rgba(15, 23, 42, 0.82) !important;
+}
+
+/* Drawer/Modal 里的表单控件：placeholder/选中值在白底上会被暗色主题 token“淡化”，这里强制深色 + 不透明 */
+.ant-drawer .ant-input::placeholder,
+.ant-modal .ant-input::placeholder,
+.ant-drawer .ant-select-selection-placeholder,
+.ant-modal .ant-select-selection-placeholder,
+.ant-drawer .ant-tree-select .ant-select-selection-placeholder,
+.ant-modal .ant-tree-select .ant-select-selection-placeholder {
+  color: rgba(15, 23, 42, 0.68) !important;
+  opacity: 1 !important;
+}
+.ant-drawer .ant-select-selection-item,
+.ant-modal .ant-select-selection-item,
+.ant-drawer .ant-tree-select .ant-select-selection-item,
+.ant-modal .ant-tree-select .ant-select-selection-item {
+  color: rgb(15, 23, 42) !important;
+  opacity: 1 !important;
+}
+.ant-drawer .ant-select-selector,
+.ant-modal .ant-select-selector,
+.ant-drawer .ant-input,
+.ant-modal .ant-input,
+.ant-drawer .ant-input-affix-wrapper,
+.ant-modal .ant-input-affix-wrapper {
+  background: rgba(15, 23, 42, 0.04) !important;
+  border-color: rgba(15, 23, 42, 0.18) !important;
+}
+.ant-drawer .ant-select-arrow,
+.ant-modal .ant-select-arrow {
+  color: rgba(15, 23, 42, 0.70) !important;
+}
+
+/* 表单验证：蓝紫焦点 */
+.ant-form-item-has-feedback .ant-input:focus,
+.ant-form-item-has-feedback .ant-input-focused {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
+
+/* Tag 标签：蓝紫渐变风格 */
+.ant-tag {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1)) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  color: rgba(15, 23, 42, 0.85) !important;
+}
+
+/* 统计数字组件：不同渐变色彩 */
+.ant-statistic {
+  border-radius: 12px !important;
+  padding: 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* KPI 卡片不同渐变色 - 根据数据类型 */
+/* 蓝色渐变 - 用于相关度、完成率等 */
+.sla-kpi-card.sla-kpi-blue .ant-card,
+.sla-kpi-card.sla-kpi-blue {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(99, 102, 241, 0.15)) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+/* 紫色渐变 - 用于强化次数、学习准确率等 */
+.sla-kpi-card.sla-kpi-purple .ant-card,
+.sla-kpi-card.sla-kpi-purple {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(168, 85, 247, 0.15)) !important;
+  border: 1px solid rgba(139, 92, 246, 0.3) !important;
+}
+
+/* 绿色渐变 - 用于成功、费曼准确率等 */
+.sla-kpi-card.sla-kpi-green .ant-card,
+.sla-kpi-card.sla-kpi-green {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(16, 185, 129, 0.15)) !important;
+  border: 1px solid rgba(34, 197, 94, 0.3) !important;
+}
+
+/* 红色渐变 - 用于错误率、薄弱点等 */
+.sla-kpi-card.sla-kpi-red .ant-card,
+.sla-kpi-card.sla-kpi-red {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.15)) !important;
+  border: 1px solid rgba(239, 68, 68, 0.3) !important;
+}
+
+/* 橙色渐变 - 用于警告、待处理等 */
+.sla-kpi-card.sla-kpi-orange .ant-card,
+.sla-kpi-card.sla-kpi-orange {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.15)) !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+}
+
+/* 青色渐变 - 用于信息、索引等 */
+.sla-kpi-card.sla-kpi-cyan .ant-card,
+.sla-kpi-card.sla-kpi-cyan {
+  background: linear-gradient(135度, rgba(6, 182, 212, 0.15), rgba(14, 165, 233, 0.15)) !important;
+  border: 1px solid rgba(6, 182, 212, 0.3) !important;
+}
+
+/* 粉色渐变 - 用于特殊指标 */
+.sla-kpi-card.sla-kpi-pink .ant-card,
+.sla-kpi-card.sla-kpi-pink {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(219, 39, 119, 0.15)) !important;
+  border: 1px solid rgba(236, 72, 153, 0.3) !important;
+}
+
+/* Alert 提示框：蓝紫风格 */
+.ant-alert {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.08)) !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+/* 面包屑：蓝紫风格 */
+.ant-breadcrumb a {
+  color: #3b82f6 !important;
+}
+
+.ant-breadcrumb a:hover {
+  color: #8b5cf6 !important;
+}
+
+/* 分页器：蓝紫风格 */
+.ant-pagination-item-active {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  border-color: #3b82f6 !important;
+}
+
+.ant-pagination-item-active a {
+  color: white !important;
+}
+
+/* 步骤条：蓝紫风格 */
+.ant-steps-item-finish .ant-steps-item-icon {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  border-color: #3b82f6 !important;
+}
+
+.ant-steps-item-active .ant-steps-item-icon {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  border-color: #3b82f6 !important;
+}
+.sla-plan-calendar .ant-picker-calendar-date {
+  min-height: 80px;
+}
+
+.sla-plan-calendar .ant-picker-calendar-date-content {
+  height: auto;
+  min-height: 40px;
+  padding: 4px 0;
+}
+
+
